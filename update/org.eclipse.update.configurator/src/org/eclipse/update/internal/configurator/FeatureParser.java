@@ -17,6 +17,7 @@ package org.eclipse.update.internal.configurator;
 import java.io.*;
 import java.net.*;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.*;
 
 import org.eclipse.osgi.util.NLS;
@@ -45,6 +46,11 @@ public class FeatureParser extends DefaultHandler {
 		super();
 		try {
 			parserFactory.setNamespaceAware(true);
+			parserFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+			parserFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+			parserFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+			parserFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+
 			this.parser = parserFactory.newSAXParser();
 		} catch (ParserConfigurationException e) {
 			System.out.println(e);

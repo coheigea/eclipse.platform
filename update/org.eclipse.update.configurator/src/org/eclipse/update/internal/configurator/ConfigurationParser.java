@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -60,6 +61,11 @@ public class ConfigurationParser extends DefaultHandler implements IConfiguratio
 
 		try {
 			parserFactory.setNamespaceAware(true);
+			parserFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+			parserFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+			parserFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+			parserFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+
 			this.parser = parserFactory.newSAXParser();
 		} catch (ParserConfigurationException e) {
 			Utils.log(Utils.newStatus("ConfigurationParser", e)); //$NON-NLS-1$
